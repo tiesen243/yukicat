@@ -1,0 +1,22 @@
+# build
+target/
+
+# temporary files
+compile_commands.json
+.clangd/
+.vscode/
+.idea/
+*.user
+
+# generated files
+*.AppImage
+*.dmg
+AppDir/
+release_package/
+build/
+
+# misc
+.DS_Store
+Thumbs.db
+*~
+*.swp
