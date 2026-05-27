@@ -3,15 +3,15 @@ TARGET_DIR = target
 BUILD_DEV_DIR = $(TARGET_DIR)/debug
 BUILD_PROD_DIR = $(TARGET_DIR)/release
 
-TARGET_DEV = $(BUILD_DEV_DIR)/Yukicat
-TARGET_PROD = $(BUILD_PROD_DIR)/Yukicat
+TARGET_DEV = $(BUILD_DEV_DIR)/yukicat
+TARGET_PROD = $(BUILD_PROD_DIR)/yukicat
 
 define DESKTOP_CONTENT
 [Desktop Entry]
 Type=Application
 Name=Yukicat
 Comment=Yukicat Application Launcher
-Exec=Yukicat
+Exec=yukicat
 Icon=Yukicat
 Categories=Utility;
 Terminal=false
@@ -25,7 +25,7 @@ all: dev
 setup_dev:
 	@mkdir -p $(BUILD_DEV_DIR)
 	@if [ ! -f "$(BUILD_DEV_DIR)/Makefile" ]; then \
-		cd $(BUILD_DEV_DIR) && cmake -DCMAKE_BUILD_TYPE=Debug -Wno-dev --no-warn-unused-cli ../..; \
+		cd $(BUILD_DEV_DIR) && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -Wno-dev --no-warn-unused-cli ../..; \
 	fi
 	@if [ -f "$(BUILD_DEV_DIR)/compile_commands.json" ] && [ ! -f "compile_commands.json" ]; then \
 		ln -s $(BUILD_DEV_DIR)/compile_commands.json compile_commands.json; \

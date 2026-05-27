@@ -1,37 +1,57 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Window
+import Yukicat 1.0
 
 Window {
-  id: mainWindow
-  width: 400
-  height: 150
+  id: panel
+  width: 640
+  height: 360
+  color: "#1e1e2e"
   visible: true
-  
-  flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
 
-  x: (Screen.width - width) / 2
-  y: (Screen.height - height) / 3
+  Backend {
+    id: cppBackend
+  }
 
-  color: "transparent"
-
-  Rectangle {
+  ColumnLayout {
     anchors.fill: parent
-    color: "#1e1e2e"
-    radius: 15
-    border.color: "#cba6f7"
-    border.width: 2
+    anchors.margins: 20
+    spacing: 15
 
-    Text {
-      anchors.centerIn: parent
-      text: "Hello World"
-      color: "#ffffff"
-      font.pointSize: 24
-      font.bold: true
+    Rectangle {
+      Layout.fillWidth: true
+      Layout.preferredHeight: 40
+      color: "#313244"
+      radius: 8
+      border.color: input.activeFocus ? "#cba6f7" : "transparent"
+      border.width: 1
+
+      TextInput {
+        id: input
+        anchors.fill: parent
+        anchors.leftMargin: 10
+        anchors.rightMargin: 10
+        verticalAlignment: TextInput.AlignVCenter
+        
+        color: "white"
+        font.pixelSize: 16
+        focus: true
+
+        onTextChanged: cppBackend.message = input.text
+      }
     }
 
-    Shortcut {
-      sequence: "Escape"
-      onActivated: Qt.quit()
+    Text {
+      id: output
+      Layout.fillWidth: true
+      Layout.fillHeight: true
+      
+      text: cppBackend.message
+      
+      color: "#a6e3a1"
+      font.pixelSize: 18
+      wrapMode: Text.Wrap
     }
   }
 }
